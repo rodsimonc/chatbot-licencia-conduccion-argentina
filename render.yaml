@@ -1,0 +1,18 @@
+# Blueprint de Render para desplegar el chatbot.
+# En Render: New + -> Blueprint -> conectás este repo. Cargá OPENAI_API_KEY como secreto.
+services:
+  - type: web
+    name: licencia-conduccion-argentina
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.server:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false          # lo cargás a mano en el panel (secreto)
+      - key: EMBEDDINGS_PROVIDER
+        value: openai
+      - key: BOT_NAME
+        value: Licencia conducción Argentina
+      - key: PYTHON_VERSION
+        value: "3.11.9"

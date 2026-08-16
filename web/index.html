@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo · Licencia conducción Argentina</title>
+<style>
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    color:#1e2430;background:#eef2f9;line-height:1.6}
+  .hero{max-width:760px;margin:0 auto;padding:70px 24px}
+  h1{font-size:2rem;margin:0 0 10px}
+  p{color:#455063}
+  .card{background:#fff;border:1px solid #e3e8f0;border-radius:14px;padding:22px;margin-top:22px}
+  code{background:#0f1729;color:#dbe4ff;padding:2px 7px;border-radius:6px;font-size:.86rem}
+  pre{background:#0f1729;color:#dbe4ff;border-radius:10px;padding:16px;overflow:auto;font-size:.84rem}
+  .hint{color:#6b7688;font-size:.9rem}
+  ul{padding-left:18px}
+</style>
+</head>
+<body>
+  <div class="hero">
+    <h1>🚦 Licencia conducción Argentina</h1>
+    <p>Esta es una página de demostración. El chatbot está abajo a la derecha 👉 hacé clic en el botón azul <strong>💬</strong> y preguntale sobre el Manual del Conductor de la ANSV.</p>
+
+    <div class="card">
+      <strong>Preguntas para probar:</strong>
+      <ul>
+        <li>¿Qué documentación necesito para conducir?</li>
+        <li>¿Qué es la luz amarilla del semáforo?</li>
+        <li>¿A qué edad se puede sacar la licencia?</li>
+        <li>¿Qué hago en una rotonda?</li>
+        <li>¿Qué elementos de seguridad debe tener el auto?</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <strong>Cómo insertarlo en tu página</strong>
+      <p class="hint">Pegá esta línea antes de <code>&lt;/body&gt;</code> en cualquier sitio. Reemplazá la URL por la de tu servidor cuando lo publiques.</p>
+      <pre>&lt;script src="http://localhost:8000/widget.js"
+        data-api="http://localhost:8000" defer&gt;&lt;/script&gt;</pre>
+      <p class="hint">Opcional: <code>data-title="Otro nombre"</code> para cambiar el título del chat.</p>
+    </div>
+  </div>
+
+  <!-- El widget del chatbot -->
+  <script src="/widget.js" data-api="" defer></script>
+</body>
+</html>

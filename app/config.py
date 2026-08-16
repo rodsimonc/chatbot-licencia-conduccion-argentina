@@ -1,0 +1,46 @@
+"""Configuración del chatbot, leída desde variables de entorno (.env)."""
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+STORAGE_DIR = BASE_DIR / "storage"
+WEB_DIR = BASE_DIR / "web"
+
+# Documento fuente
+PDF_PATH = Path(os.getenv("PDF_PATH", DATA_DIR / "manual.pdf"))
+INDEX_DIR = STORAGE_DIR / "faiss_index"
+
+# Identidad del bot
+BOT_NAME = os.getenv("BOT_NAME", "Licencia conducción Argentina")
+
+# Proveedor del modelo de lenguaje (respuestas)
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openai")          # openai
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+CHAT_MODEL = os.getenv("CHAT_MODEL", "gpt-4o-mini")
+TEMPERATURE = float(os.getenv("TEMPERATURE", "0.1"))
+
+# Proveedor de embeddings (para indexar y buscar)
+EMBEDDINGS_PROVIDER = os.getenv("EMBEDDINGS_PROVIDER", "openai")   # openai | huggingface
+OPENAI_EMBED_MODEL = os.getenv("OPENAI_EMBED_MODEL", "text-embedding-3-small")
+HF_EMBED_MODEL = os.getenv("HF_EMBED_MODEL", "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+
+# Parámetros de RAG
+CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", "1000"))
+CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "150"))
+RETRIEVER_K = int(os.getenv("RETRIEVER_K", "4"))
+
+# CORS (para embeber el widget en otra página). "*" = cualquier origen.
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*")
+
+
+def get_embeddings():
+    """Devuelve el modelo de embeddings según el proveedor configurado."""
+    if EMBEDDINGS_PROVIDER == "huggingface":
+        from langchain_huggingface import HuggingFaceEmbeddings
+        return HuggingFaceEmbeddings(model_name=HF_EMBED_MODEL)
+    from langchain_openai import OpenAIEmbeddings
+    return OpenAIEmbeddings(model=OPENAI_EMBED_MODEL, api_key=OPENAI_API_KEY)

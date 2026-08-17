@@ -5,8 +5,18 @@ Chatbot de preguntas y respuestas sobre el **Manual del Conductor** de la Agenci
 ## Stack
 
 - **LangChain** (RAG) + **FAISS** (vector store)
-- **OpenAI** (`gpt-4o-mini` + embeddings) — configurable
+- Modelo configurable: **Google Gemini** (capa gratuita) o **OpenAI**
 - **FastAPI** (backend) + widget JS embebible
+
+## Opción gratis (Google Gemini)
+
+Gemini tiene una **capa gratuita sin tarjeta de crédito**, y sirve para respuestas y embeddings.
+
+1. Sacá tu API key gratis en **https://aistudio.google.com/app/apikey**.
+2. En `.env` dejá `LLM_PROVIDER=google` y `EMBEDDINGS_PROVIDER=google`, y pegá tu key en `GOOGLE_API_KEY` (el `.env.example` ya viene así por defecto).
+3. Seguí los pasos de "Puesta en marcha". No hace falta instalar nada pesado.
+
+Para usar OpenAI en su lugar, poné `LLM_PROVIDER=openai` y `EMBEDDINGS_PROVIDER=openai` y cargá `OPENAI_API_KEY`.
 
 ## Puesta en marcha
 

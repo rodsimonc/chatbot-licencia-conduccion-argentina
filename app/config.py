@@ -17,16 +17,25 @@ INDEX_DIR = STORAGE_DIR / "faiss_index"
 # Identidad del bot
 BOT_NAME = os.getenv("BOT_NAME", "Licencia conducción Argentina")
 
-# Proveedor del modelo de lenguaje (respuestas)
-LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openai")          # openai
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
-CHAT_MODEL = os.getenv("CHAT_MODEL", "gpt-4o-mini")
+# Proveedor del modelo de lenguaje (respuestas): openai | google
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openai")
 TEMPERATURE = float(os.getenv("TEMPERATURE", "0.1"))
 
-# Proveedor de embeddings (para indexar y buscar)
-EMBEDDINGS_PROVIDER = os.getenv("EMBEDDINGS_PROVIDER", "openai")   # openai | huggingface
+# OpenAI
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+CHAT_MODEL = os.getenv("CHAT_MODEL", "gpt-4o-mini")
 OPENAI_EMBED_MODEL = os.getenv("OPENAI_EMBED_MODEL", "text-embedding-3-small")
+
+# Google Gemini (capa gratuita en Google AI Studio)
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
+GEMINI_CHAT_MODEL = os.getenv("GEMINI_CHAT_MODEL", "gemini-2.0-flash")
+GEMINI_EMBED_MODEL = os.getenv("GEMINI_EMBED_MODEL", "models/text-embedding-004")
+
+# HuggingFace (embeddings locales gratis)
 HF_EMBED_MODEL = os.getenv("HF_EMBED_MODEL", "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+
+# Proveedor de embeddings (para indexar y buscar): openai | google | huggingface
+EMBEDDINGS_PROVIDER = os.getenv("EMBEDDINGS_PROVIDER", "openai")
 
 # Parámetros de RAG
 CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", "1000"))
@@ -39,6 +48,9 @@ ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*")
 
 def get_embeddings():
     """Devuelve el modelo de embeddings según el proveedor configurado."""
+    if EMBEDDINGS_PROVIDER == "google":
+        from langchain_google_genai import GoogleGenerativeAIEmbeddings
+        return GoogleGenerativeAIEmbeddings(model=GEMINI_EMBED_MODEL, google_api_key=GOOGLE_API_KEY)
     if EMBEDDINGS_PROVIDER == "huggingface":
         from langchain_huggingface import HuggingFaceEmbeddings
         return HuggingFaceEmbeddings(model_name=HF_EMBED_MODEL)

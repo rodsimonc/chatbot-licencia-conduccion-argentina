@@ -47,8 +47,9 @@ def chat(body: ChatIn):
         return ChatOut(answer=result["answer"], sources=result["sources"])
     except Exception as e:  # noqa: BLE001
         msg = str(e)
-        if "api_key" in msg.lower() or "OPENAI_API_KEY" in msg:
-            return ChatOut(answer="Falta configurar la API key de OpenAI en el servidor (.env).", sources=[])
+        low = msg.lower()
+        if "api" in low and "key" in low:
+            return ChatOut(answer="Falta configurar la API key en el servidor (revisá el .env: OPENAI_API_KEY o GOOGLE_API_KEY según el proveedor).", sources=[])
         return ChatOut(answer=f"Ocurrió un error procesando la consulta: {msg}", sources=[])
 
 

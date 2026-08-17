@@ -27,6 +27,12 @@ CONTEXTO:
 
 
 def _get_llm():
+    if config.LLM_PROVIDER == "google":
+        from langchain_google_genai import ChatGoogleGenerativeAI
+        return ChatGoogleGenerativeAI(
+            model=config.GEMINI_CHAT_MODEL, temperature=config.TEMPERATURE,
+            google_api_key=config.GOOGLE_API_KEY,
+        )
     from langchain_openai import ChatOpenAI
     return ChatOpenAI(model=config.CHAT_MODEL, temperature=config.TEMPERATURE, api_key=config.OPENAI_API_KEY)
 

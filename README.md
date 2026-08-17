@@ -42,6 +42,16 @@ Abrí **http://localhost:8000/** para ver la demo con el chatbot funcionando (bo
 
 > Si no querés pagar embeddings, poné `EMBEDDINGS_PROVIDER=huggingface` en `.env`: usa un modelo local gratuito (multilingüe). El LLM de las respuestas sí usa OpenAI.
 
+## Embeddings locales (sin cuota ni límites)
+
+Ideal si querés reindexar seguido sin esperar los límites por minuto del plan gratis. Los embeddings corren en tu máquina y las respuestas siguen usando Gemini (u OpenAI).
+
+1. Instalá los paquetes locales (una vez): `pip install langchain-huggingface sentence-transformers` (descarga ~500 MB).
+2. En `.env` poné `EMBEDDINGS_PROVIDER=huggingface` (dejá `LLM_PROVIDER=google` para las respuestas).
+3. `python -m app.ingest` (ahora indexa al instante, sin cuota).
+
+La primera vez se descarga un modelo (~470 MB) a la caché de HuggingFace. Para elegir dónde se guarda (por ejemplo otro disco), definí la variable de entorno `HF_HOME` a la carpeta que quieras antes de correrlo.
+
 ## Insertar el chatbot en tu página
 
 Pegá esta línea antes de `</body>` en cualquier sitio:

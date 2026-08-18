@@ -1,0 +1,18 @@
+# Render Blueprint to deploy the chatbot.
+# In Render: New + -> Blueprint -> connect this repo. Set OPENAI_API_KEY as a secret.
+services:
+  - type: web
+    name: argentina-driving-license
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.server:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false          # set it manually in the dashboard (secret)
+      - key: EMBEDDINGS_PROVIDER
+        value: openai
+      - key: BOT_NAME
+        value: Argentina Driving License
+      - key: PYTHON_VERSION
+        value: "3.11.9"

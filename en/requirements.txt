@@ -1,0 +1,19 @@
+# RAG Chatbot "Argentina Driving License"
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-dotenv==1.0.1
+pypdf==5.1.0
+
+# LangChain
+langchain==0.3.14
+langchain-community==0.3.14
+langchain-openai==0.2.14
+langchain-google-genai==2.0.8
+langchain-text-splitters==0.3.5
+
+# Vector store
+faiss-cpu==1.9.0.post1
+
+# Local embeddings (optional; only if EMBEDDINGS_PROVIDER=huggingface)
+langchain-huggingface==0.1.2
+sentence-transformers==3.3.1
